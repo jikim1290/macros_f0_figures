@@ -200,22 +200,26 @@ void Fig6_DR_pt_kstar(){
  hF0_pion_ratio_pT_syst[0]->GetXaxis()->SetTitleSize(0.06);
  hF0_pion_ratio_pT_syst[0]->GetXaxis()->SetLabelSize(0.05);
 
- hF0_pion_ratio_pT_syst[0]->GetYaxis()->SetTitleSize(0.07);
+ hF0_pion_ratio_pT_syst[0]->GetYaxis()->SetTitleSize(28);
+ hF0_pion_ratio_pT_syst[0]->GetYaxis()->SetTitleFont(43);
  hF0_pion_ratio_pT_syst[0]->GetYaxis()->SetTitleOffset(0.8);
- hF0_pion_ratio_pT_syst[0]->GetYaxis()->SetLabelSize(0.05);
+ hF0_pion_ratio_pT_syst[0]->GetYaxis()->SetLabelSize(0.24);
+ hF0_pion_ratio_pT_syst[0]->GetYaxis()->SetLabelFont(43);
 
  TCanvas* c = new TCanvas("c","c",800,600);
  gPad->SetLeftMargin(0.13);
  gPad->SetBottomMargin(0.13);
  gStyle->SetOptStat(0);
 
- TLegend* leg = new TLegend(0.149,0.491,0.689,0.842);
- leg->SetLineWidth(0.0); leg->SetFillColorAlpha(0,0);
+ TLegend* leg = new TLegend(0.149,0.61,0.689,0.92);
+ leg->SetLineWidth(0.0); leg->SetFillStyle(0);
+ leg->SetTextSize(24);
+ leg->SetTextFont(43);
 
- leg->AddEntry( (TObject*)0, "#scale[1.3]{ALICE Preliminary}", "");
+ leg->AddEntry( (TObject*)0, "#scale[1.2]{ALICE Preliminary}", "");
  leg->AddEntry( (TObject*)0, "p#font[122]{-}Pb, #sqrt{#it{s}_{NN}} = 5.02 TeV, -0.5<y<0", "");
- leg->AddEntry( hF0_pion_ratio_pT_stat[0], "0#font[122]{-}20%", "pl");
- leg->AddEntry( hF0_pion_ratio_pT_stat[3], "60#font[122]{-}100%", "lp");
+ leg->AddEntry( hF0_pion_ratio_pT_stat[0], "0#font[122]{-}20%", "p");
+ leg->AddEntry( hF0_pion_ratio_pT_stat[3], "60#font[122]{-}100%", "p");
 
 // leg->AddEntry( (TObject*)0, "Uncertainties: stat.(bars), syst.(boxes)", "");
 
@@ -255,15 +259,24 @@ void Fig6_DR_pt_kstar(){
  TPad* pad2 = new TPad("p2","p2",0.0,0.0,1.0,0.35);
  pad1->SetLeftMargin(0.13);
  pad1->SetBottomMargin(0.0);
+ pad1->SetTopMargin(0.03);
+ pad1->SetRightMargin(0.03);
  pad2->SetTopMargin(0.0);
  pad2->SetLeftMargin(0.13);
  pad2->SetBottomMargin(0.3);
+ pad2->SetRightMargin(0.03);
  pad1->SetTicks();
  pad2->SetTicks();
 
 
  cRatio->cd(); pad1->Draw();
  cRatio->cd(); pad2->Draw();
+
+ hRatioSyst[0]->GetYaxis()->SetTitleSize(28);
+ hRatioSyst[0]->GetYaxis()->SetTitleFont(43);
+ hRatioSyst[0]->GetYaxis()->SetTitleOffset(1.3);
+ hRatioSyst[0]->GetYaxis()->SetLabelSize(24);
+ hRatioSyst[0]->GetYaxis()->SetLabelFont(43);
 
 
  pad1->cd();
@@ -276,8 +289,10 @@ void Fig6_DR_pt_kstar(){
  leg->Draw();
 
 
- TLegend* legu = new TLegend(0.002,0.405,0.647,0.494);
- legu->SetLineWidth(0.0); legu->SetFillColorAlpha(0,0);
+ TLegend* legu = new TLegend(0.002,0.5,0.647,0.6);
+ legu->SetLineWidth(0.0); legu->SetFillStyle(0);
+ legu->SetTextSize(20);
+ legu->SetTextFont(43);
  legu->AddEntry( (TObject*)0, "Uncertainties: stat.(bars), syst.(boxes)", "");
  legu->Draw();
 
@@ -287,14 +302,19 @@ void Fig6_DR_pt_kstar(){
  hDoubleRatioStat->SetMaximum(1.6);
  hDoubleRatioStat->SetMinimum(0.4);
  hDoubleRatioStat->SetTitle("");
- hDoubleRatioStat->GetXaxis()->SetTitleSize(0.12);
- hDoubleRatioStat->GetXaxis()->SetLabelSize(0.12);
+ hDoubleRatioStat->GetXaxis()->SetTitleSize(28);
+ hDoubleRatioStat->GetXaxis()->SetTitleFont(43);
+ hDoubleRatioStat->GetXaxis()->SetLabelSize(24);
+ hDoubleRatioStat->GetXaxis()->SetLabelFont(43);
+ hDoubleRatioStat->GetXaxis()->SetTitleOffset(3.0);
  hDoubleRatioStat->GetYaxis()->SetTitle("#frac{(0#font[122]{-}20%)}{(60#font[122]{-}100%)}");
  hDoubleRatioStat->GetYaxis()->CenterTitle();
- hDoubleRatioStat->GetYaxis()->SetTitleSize(0.11);
- hDoubleRatioStat->GetYaxis()->SetTitleOffset(0.5);
+ hDoubleRatioStat->GetYaxis()->SetTitleSize(28);
+ hDoubleRatioStat->GetYaxis()->SetTitleFont(43);
+ hDoubleRatioStat->GetYaxis()->SetTitleOffset(1.3);
  hDoubleRatioStat->GetYaxis()->SetNdivisions(505);
- hDoubleRatioStat->GetYaxis()->SetLabelSize(0.11);
+ hDoubleRatioStat->GetYaxis()->SetLabelSize(24);
+ hDoubleRatioStat->GetYaxis()->SetLabelFont(43);
  hDoubleRatioStat->Draw();
  hDoubleRatioSyst->Draw("same,e2");
 
@@ -305,6 +325,7 @@ void Fig6_DR_pt_kstar(){
  lui->Draw();
 
  cRatio->SaveAs("figs/Fig6_DR_pt_kstar.pdf");
+ cRatio->SaveAs("figs/Fig6_DR_pt_kstar.eps");
 
 
 /*

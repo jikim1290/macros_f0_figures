@@ -46,8 +46,7 @@ void Fig4_DRY_pion(){
 
  TCanvas* c = new TCanvas("c","c",700,600);
  gPad->SetLeftMargin(0.14);
- gPad->SetBottomMargin(0.14);
-
+ gPad->SetBottomMargin(0.15);
  gPad->SetRightMargin(0.03);
  gPad->SetTopMargin(0.03);
 
@@ -59,12 +58,14 @@ void Fig4_DRY_pion(){
 
  gDR_Phi_stat->GetYaxis()->SetTitle(" (h/#pi)/(h/#pi)_{LM}");
  gDR_Phi_stat->GetXaxis()->SetTitle("#LTd#it{N}_{ch}/d#eta#GT^{1/3}_{|#eta|<0.5}");
- gDR_Phi_stat->GetYaxis()->SetTitleSize(0.06);
- gDR_Phi_stat->GetXaxis()->SetTitleSize(0.06);
- gDR_Phi_stat->GetYaxis()->SetLabelSize(0.05);
- gDR_Phi_stat->GetXaxis()->SetLabelSize(0.05);
- gDR_Phi_stat->GetYaxis()->SetTitleOffset(0.9);
- gDR_Phi_stat->GetXaxis()->SetTitleOffset(0.9);
+ gDR_Phi_stat->GetXaxis()->SetTitleSize(32);
+ gDR_Phi_stat->GetYaxis()->SetTitleSize(32);
+ gDR_Phi_stat->GetYaxis()->SetTitleFont(43);
+ gDR_Phi_stat->GetXaxis()->SetTitleFont(43);
+ gDR_Phi_stat->GetXaxis()->SetLabelSize(26);
+ gDR_Phi_stat->GetYaxis()->SetLabelSize(26);
+ gDR_Phi_stat->GetYaxis()->SetLabelFont(43);
+ gDR_Phi_stat->GetXaxis()->SetLabelFont(43);
  gDR_Phi_stat->GetXaxis()->SetNdivisions(505);
  gDR_Phi_stat->GetYaxis()->SetNdivisions(505);
 
@@ -101,22 +102,27 @@ void Fig4_DRY_pion(){
  gDR_F0_syst->Draw("e2");
 
  TLegend* leg = new TLegend(0.161,0.728,0.703,0.939);
- leg->SetFillColorAlpha(0,0);
+ leg->SetFillStyle(0);
  leg->SetLineWidth(0.0);
+ leg->SetTextSize(24);
+ leg->SetTextFont(43);
  
  leg->AddEntry( (TObject*)0, "ALICE, p#font[122]{-}Pb #sqrt{#it{s}_{NN}} = 5.02 TeV", "");
- leg->AddEntry( gDR_Phi_stat, "#phi (EPJC 76 (2016) 245)", "pl");
- leg->AddEntry( gDR_Kstar_stat, "K^{*0} (EPJC 76 (2016) 245)", "pl");
- leg->AddEntry( gDR_F0_stat, "f_{0}, Preliminary", "pl");
+ leg->AddEntry( gDR_Phi_stat, "#phi (EPJC 76 (2016) 245)", "p");
+ leg->AddEntry( gDR_Kstar_stat, "K^{*0} (EPJC 76 (2016) 245)", "p");
+ leg->AddEntry( gDR_F0_stat, "f_{0}, Preliminary", "p");
  leg->Draw();
 
  TLegend* legu = new TLegend(0.027,0.168,0.727,0.259);
- legu->SetFillColorAlpha(0,0);
+ legu->SetFillStyle(0);
  legu->SetLineWidth(0.0);
+ legu->SetTextSize(22);
+ legu->SetTextFont(43);
  legu->AddEntry( (TObject*)0, "Uncertainties: stat.(bars), syst.(boxes)", "");
  legu->Draw();
 
  c->SaveAs("figs/Fig4_dr_pion.pdf");
+ c->SaveAs("figs/Fig4_dr_pion.eps");
 
 
 /* RHO
