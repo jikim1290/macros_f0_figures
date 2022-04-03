@@ -50,13 +50,19 @@ void Fig2_pT(){
 	hPt_R_Syst[i] = (TH1D*)fin->Get(Form("hYRSyst_%d",i));
 
 	hPt_Stat[i]->SetTitle("");
-	hPt_Stat[i]->GetYaxis()->SetTitleSize(0.06);
+	hPt_Stat[i]->GetYaxis()->SetTitleSize(32);
+	hPt_Stat[i]->GetYaxis()->SetTitleFont(43);
+	hPt_Stat[i]->GetYaxis()->SetLabelSize(26);
+	hPt_Stat[i]->GetYaxis()->SetLabelFont(43);
+	hPt_Stat[i]->GetYaxis()->SetTitleOffset(1.6);
 	hPt_Stat[i]->GetYaxis()->SetTitle("1/#it{N}_{evt} d^{2}#it{N}/(dyd#it{p}_{T}) [(GeV/#it{c}^{-1})]");
 
-	hPt_Stat[i]->GetXaxis()->SetTitleSize(0.05);
-	hPt_Stat[i]->GetXaxis()->SetTitleOffset(1);
+	hPt_Stat[i]->GetXaxis()->SetTitleSize(32);
+	hPt_Stat[i]->GetXaxis()->SetTitleFont(43);
+	hPt_Stat[i]->GetXaxis()->SetLabelSize(26);
+	hPt_Stat[i]->GetXaxis()->SetLabelFont(43);
+	hPt_Stat[i]->GetXaxis()->SetTitleOffset(1.3);
 	hPt_Stat[i]->GetXaxis()->SetTitle("#it{p}_{T} (GeV/#it{c})");
-	hPt_Stat[i]->GetXaxis()->SetLabelSize(0.05);
 
 	hPt_R_Stat[i]->GetXaxis()->SetLabelSize(0.05*0.88/0.35);
 	hPt_R_Stat[i]->GetXaxis()->SetTitleSize(0.05*0.88/0.35);
@@ -67,7 +73,7 @@ void Fig2_pT(){
 
 	hPt_R_Stat[i]->GetYaxis()->SetNdivisions(505);
 	hPt_R_Stat[i]->GetYaxis()->SetTitleOffset(0.6);
-        hPt_Stat[i]->GetXaxis()->SetRangeUser(0,9);
+	hPt_Stat[i]->GetXaxis()->SetRangeUser(0,9);
 	hPt_R_Stat[i]->GetXaxis()->SetRangeUser(0,9);
 
 	hPt_Stat[i]->SetLineColor( RainbowColor[i] );
@@ -76,11 +82,11 @@ void Fig2_pT(){
 	hPt_R_Stat[i]->SetLineColor( RainbowColor[i] );
 	hPt_R_Syst[i]->SetLineColor( RainbowColor[i] );
 
-        hPt_Stat[i]->SetMarkerColor( RainbowColor[i] );
-        hPt_Syst[i]->SetMarkerColor( RainbowColor[i] );
-        hPt_Uncorr_Syst[i]->SetMarkerColor( RainbowColor[i] );
-        hPt_R_Stat[i]->SetMarkerColor( RainbowColor[i] );
-        hPt_R_Syst[i]->SetMarkerColor( RainbowColor[i] );
+	hPt_Stat[i]->SetMarkerColor( RainbowColor[i] );
+	hPt_Syst[i]->SetMarkerColor( RainbowColor[i] );
+	hPt_Uncorr_Syst[i]->SetMarkerColor( RainbowColor[i] );
+	hPt_R_Stat[i]->SetMarkerColor( RainbowColor[i] );
+	hPt_R_Syst[i]->SetMarkerColor( RainbowColor[i] );
 
 	hPt_Stat[i]->SetMarkerStyle( MarkerStyle[i] );
 	hPt_Syst[i]->SetMarkerStyle( MarkerStyle[i] );
@@ -92,12 +98,16 @@ void Fig2_pT(){
  TH1D* hPt_Syst_inc = (TH1D*)hPt_Syst[4]->Clone();
 
 
- TLegend* leg_inc = new TLegend(0.312, 0.689, 0.945, 0.940);
- leg_inc->SetFillColorAlpha(0,0);
+ TLegend* leg_inc = new TLegend(0.35, 0.7, 0.945, 0.940);
+ leg_inc->SetFillStyle(0);
+ leg_inc->SetMargin(0.15);
+ leg_inc->SetTextSize(23);
+ leg_inc->SetTextFont(43);
  leg_inc->SetLineWidth(0.0);
 
- leg_inc->AddEntry( (TObject*)0, "#scale[1.3]{ALICE Preliminary}", "");
- leg_inc->AddEntry( hPt_Stat_inc, "ALICE, p#font[122]{-}Pb, #sqrt{#it{s}_{NN}} = 5.02 TeV", "pl");
+ leg_inc->AddEntry( (TObject*)0, "#scale[1.2]{ALICE Preliminary}", "");
+ //leg_inc->AddEntry( hPt_Stat_inc, "ALICE, p#font[122]{-}Pb, #sqrt{#it{s}_{NN}} = 5.02 TeV", "p");
+ leg_inc->AddEntry( hPt_Stat_inc, "p#font[122]{-}Pb, #sqrt{#it{s}_{NN}} = 5.02 TeV", "p");
  leg_inc->AddEntry( (TObject*)0, "-0.5<y<0, NSD", "");
  leg_inc->AddEntry( (TObject*)0, "f_{0}(980)#rightarrow#pi^{+}#pi^{-}", "");
  leg_inc->AddEntry( (TObject*)0, "Uncertainties: stat.(bars), syst.(boxes)", "");
@@ -110,13 +120,19 @@ void Fig2_pT(){
  c->SetLogy();
  c->SetTicks(1);
 
- hPt_Stat_inc->GetYaxis()->SetTitleSize( 0.7*0.06 );
- hPt_Stat_inc->Draw();
+ //hPt_Stat_inc->GetYaxis()->SetTitleSize( 0.8*0.06 );
+ //hPt_Stat_inc->GetXaxis()->SetTitleSize( 0.8*0.06 );
+ //hPt_Stat_inc->GetYaxis()->SetLabelSize( 0.8*0.05 );
+ //hPt_Stat_inc->GetXaxis()->SetLabelSize( 0.8*0.05 );
+ //hPt_Stat_inc->GetXaxis()->SetTitleOffset( 1.15 );
+ hPt_Stat_inc->Draw("ex0");
  hPt_Syst_inc->Draw("same,e2");
 
  leg_inc->Draw();
  c->SaveAs("figs/Fig2_pt_inc.pdf");
+ c->SaveAs("figs/Fig2_pt_inc.eps");
 
+ //return;
 
  TPad* pad1 = new TPad("p1","p1",0.0, 0.35, 1, 1);
  TPad* pad2 = new TPad("p2","p2",0.0, 0.0,  1, 0.35);
@@ -146,39 +162,64 @@ void Fig2_pT(){
  hPt_Stat[4]->Scale(0.25);
  hPt_Syst[4]->Scale(0.25);
 
+ //hPt_Stat[0]->GetYaxis()->SetTitleSize( 1*0.06 );
+ //hPt_Stat[0]->GetXaxis()->SetTitleSize( 1*0.06 );
+ //hPt_Stat[0]->GetYaxis()->SetLabelSize( 1*0.05 );
+ //hPt_Stat[0]->GetXaxis()->SetLabelSize( 1*0.05 );
+ //hPt_Stat[0]->GetYaxis()->SetTitleOffset( 1.15 );
  hPt_Stat[0]->SetMinimum(2e-5);
- hPt_Stat[0]->Draw();
+ hPt_Stat[0]->Draw("ex0");
+
+
  for(int i=0;i<nmult;i++){	
-	hPt_Stat[i]->Draw("same");
+	hPt_Stat[i]->Draw("same,ex0");
 	hPt_Syst[i]->Draw("same,e2");
  }
+
  pad2->cd(); 
 
  hPt_R_Stat[0]->SetMinimum(2e-1);
- hPt_R_Stat[0]->Draw();
+ hPt_R_Stat[0]->GetYaxis()->SetTitleSize( 32 );
+ hPt_R_Stat[0]->GetXaxis()->SetTitleSize( 32 );
+ hPt_R_Stat[0]->GetYaxis()->SetTitleFont( 43 );
+ hPt_R_Stat[0]->GetXaxis()->SetTitleFont( 43 );
+ hPt_R_Stat[0]->GetYaxis()->SetLabelSize( 26 );
+ hPt_R_Stat[0]->GetXaxis()->SetLabelSize( 26 );
+ hPt_R_Stat[0]->GetYaxis()->SetLabelFont( 43 );
+ hPt_R_Stat[0]->GetXaxis()->SetLabelFont( 43 );
+ hPt_R_Stat[0]->GetYaxis()->SetTitleOffset( 1.5 );
+ hPt_R_Stat[0]->GetXaxis()->SetTitleOffset( 3.5 );
+ hPt_R_Stat[0]->Draw("ex0");
+
+
  for(int i=0;i<nmult-1;i++){
-	hPt_R_Stat[i]->Draw("same");
+	hPt_R_Stat[i]->Draw("same,ex0");
 	hPt_R_Syst[i]->Draw("same,e2");
  }
 
 
- TLegend* leg_mult = new TLegend(0.312, 0.689, 0.945, 0.940);
- leg_mult->SetFillColorAlpha(0,0);
+ TLegend* leg_mult = new TLegend(0.332, 0.73, 0.945, 0.930);
+ leg_mult->SetFillStyle(0);
+ leg_mult->SetTextSize(23);
+ leg_mult->SetTextFont(43);
  leg_mult->SetLineWidth(0.0);
 
- leg_mult->AddEntry( (TObject*)0, "#scale[1.3]{ALICE Preliminary}", "");
- leg_mult->AddEntry( (TObject*)0, "ALICE, p#font[122]{-}Pb, #sqrt{#it{s}_{NN}} = 5.02 TeV", "");
+ leg_mult->AddEntry( (TObject*)0, "#scale[1.2]{ALICE Preliminary}", "");
+ //leg_mult->AddEntry( (TObject*)0, "ALICE, p#font[122]{-}Pb, #sqrt{#it{s}_{NN}} = 5.02 TeV", "");
+ leg_mult->AddEntry( (TObject*)0, "p#font[122]{-}Pb, #sqrt{#it{s}_{NN}} = 5.02 TeV", "");
  leg_mult->AddEntry( (TObject*)0, "-0.5<y<0, f_{0}(980)#rightarrow#pi^{+}#pi^{-}", "");
 
 
- TLegend* leg_v0a = new TLegend(0.174,0.022,0.702,0.225);
- leg_v0a->SetFillColorAlpha(0,0);
- leg_v0a->SetNColumns(3);
+ TLegend* leg_v0a = new TLegend(0.174,0.022,0.602,0.275);
+ leg_v0a->SetFillStyle(0);
+ leg_v0a->SetNColumns(2);
  leg_v0a->SetLineWidth(0.0);
  leg_v0a->SetHeader("V0A multiplicity (Pb side)");
+ leg_v0a->SetTextSize(20);
+ leg_v0a->SetTextFont(43);
  for(int i=0;i<nmult-1;i++){
 	leg_v0a->AddEntry( hPt_R_Stat[i], Form("%s (#times2^{%d})",multname[i],nmult-i-1), "pl");
-	if( i==1 ) leg_v0a->AddEntry( (TObject*)0, "", "");
+	if( i==0 ) leg_v0a->AddEntry( (TObject*)0, "", "");
  }
  leg_v0a->AddEntry( hPt_R_Stat[4], Form("%s (#times2^{%d})",multname[4],-2), "pl");
 
@@ -189,4 +230,5 @@ void Fig2_pT(){
  leg_v0a->Draw();
 
  c->SaveAs("figs/Fig2_pt_all.pdf");
+ c->SaveAs("figs/Fig2_pt_all.eps");
 }

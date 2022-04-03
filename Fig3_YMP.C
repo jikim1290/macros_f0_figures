@@ -38,25 +38,33 @@
  gf0y_pPb5_stat->SetMaximum(0.25);
 
  gf0y_pPb5_stat->GetXaxis()->SetRangeUser(0,40);
- gf0y_pPb5_syst->GetXaxis()->SetTitle("#LTd#it{N}_{ch}/d#eta_{|#eta|<0.5}#GT");
+ gf0y_pPb5_syst->GetXaxis()->SetTitle("#LTd#it{N}_{ch}/d#eta#GT_{|#eta|<0.5}");
  gf0y_pPb5_syst->GetYaxis()->SetTitle("d#it{N}_{f_{0}(980)}/dy");
  gf0y_pPb5_syst->SetTitle("");
- gf0y_pPb5_syst->GetXaxis()->SetTitleSize(0.06);
- gf0y_pPb5_syst->GetYaxis()->SetTitleSize(0.06);
- gf0y_pPb5_syst->GetXaxis()->SetLabelSize(0.06);
- gf0y_pPb5_syst->GetYaxis()->SetLabelSize(0.06);
+ gf0y_pPb5_syst->GetXaxis()->SetTitleSize(36);
+ gf0y_pPb5_syst->GetYaxis()->SetTitleSize(36);
+ gf0y_pPb5_syst->GetYaxis()->SetTitleFont(43);
+ gf0y_pPb5_syst->GetXaxis()->SetTitleFont(43);
+ gf0y_pPb5_syst->GetXaxis()->SetLabelSize(30);
+ gf0y_pPb5_syst->GetYaxis()->SetLabelSize(30);
+ gf0y_pPb5_syst->GetYaxis()->SetLabelFont(43);
+ gf0y_pPb5_syst->GetXaxis()->SetLabelFont(43);
  gf0y_pPb5_syst->GetYaxis()->SetTitleOffset(1.15);
  gf0y_pPb5_syst->GetXaxis()->SetTitleOffset(1.15);
 
 
  gf0mp_pPb5_stat->GetXaxis()->SetRangeUser(0,40);
- gf0mp_pPb5_syst->GetXaxis()->SetTitle("#LTd#it{N}_{ch}/d#eta_{|#eta|<0.5}#GT");
+ gf0mp_pPb5_syst->GetXaxis()->SetTitle("#LTd#it{N}_{ch}/d#eta#GT_{|#eta|<0.5}");
  gf0mp_pPb5_syst->GetYaxis()->SetTitle("#LT#it{p}_{T}#GT (GeV/#it{c})");
  gf0mp_pPb5_syst->SetTitle("");
- gf0mp_pPb5_syst->GetXaxis()->SetTitleSize(0.06);
- gf0mp_pPb5_syst->GetYaxis()->SetTitleSize(0.06);
- gf0mp_pPb5_syst->GetXaxis()->SetLabelSize(0.06);
- gf0mp_pPb5_syst->GetYaxis()->SetLabelSize(0.06);
+ gf0mp_pPb5_syst->GetXaxis()->SetTitleSize(36);
+ gf0mp_pPb5_syst->GetYaxis()->SetTitleSize(36);
+ gf0mp_pPb5_syst->GetYaxis()->SetTitleFont(43);
+ gf0mp_pPb5_syst->GetXaxis()->SetTitleFont(43);
+ gf0mp_pPb5_syst->GetXaxis()->SetLabelSize(30);
+ gf0mp_pPb5_syst->GetYaxis()->SetLabelSize(30);
+ gf0mp_pPb5_syst->GetYaxis()->SetLabelFont(43);
+ gf0mp_pPb5_syst->GetXaxis()->SetLabelFont(43);
  gf0mp_pPb5_syst->GetYaxis()->SetTitleOffset(1.15);
  gf0mp_pPb5_syst->GetXaxis()->SetTitleOffset(1.15);
 
@@ -147,8 +155,10 @@
  gf0mp_pp5_stat->SetMarkerSize(1.5);
 
  TCanvas* c = new TCanvas("c","c",900,650);
- c->SetLeftMargin(0.15);
- c->SetBottomMargin(0.17);
+ c->SetTopMargin(0.03);
+ c->SetRightMargin(0.03);
+ c->SetLeftMargin(0.14);
+ c->SetBottomMargin(0.15);
  c->SetTicks(1);
 
  gf0y_pPb5_syst->GetXaxis()->SetRangeUser(0,40);
@@ -170,23 +180,28 @@
  gf0y_pPb5_mb_stat->Draw("P");
  gf0y_pPb5_mb_syst->Draw("e2");
 
- TLegend* leg = new TLegend(0.168,0.593,0.744,0.88);
+ TLegend* leg = new TLegend(0.154,0.633,0.614,0.936);
  leg->SetFillColorAlpha(0,0);
  leg->SetLineWidth(0.0);
+ leg->SetTextSize(28);
+ leg->SetTextFont(43);
  leg->AddEntry( (TObject*)0, "#scale[1.3]{ALICE Preliminary}","");
  leg->AddEntry( (TObject*)0, "f_{0}(980)#rightarrow#pi^{+}#pi^{-}", "");
- leg->AddEntry( gf0y_pp5_stat, "pp, #sqrt{#it{s}} = 5.02 TeV, INEL","lp");
- leg->AddEntry( gf0y_pPb5_stat, "p#font[122]{-}Pb, #sqrt{#it{s}_{NN}} = 5.02 TeV","lp");
- leg->AddEntry( gf0y_pPb5_mb_stat, "p#font[122]{-}Pb, #sqrt{#it{s}_{NN}} = 5.02 TeV, NSD","lp");
+ leg->AddEntry( gf0y_pp5_stat, "pp, #sqrt{#it{s}} = 5.02 TeV, INEL","p");
+ leg->AddEntry( gf0y_pPb5_stat, "p#font[122]{-}Pb, #sqrt{#it{s}_{NN}} = 5.02 TeV","p");
+ leg->AddEntry( gf0y_pPb5_mb_stat, "p#font[122]{-}Pb, #sqrt{#it{s}_{NN}} = 5.02 TeV, NSD","p");
 
  leg->Draw();
  c->SaveAs("figs/Fig3_yield.pdf");
+ c->SaveAs("figs/Fig3_yield.eps");
 // leg->Clear();
 
 
  TCanvas* c1 = new TCanvas("c1","c1",900,650);
- c1->SetLeftMargin(0.15);
+ c1->SetLeftMargin(0.14);
  c1->SetBottomMargin(0.15);
+ c1->SetTopMargin(0.03);
+ c1->SetRightMargin(0.03);
  c1->SetTicks(1);
 
  gf0mp_pPb5_syst->GetXaxis()->SetRangeUser(0,40);
@@ -210,20 +225,23 @@
 // gf0mp_pPb8_stat->Draw("P");
 // gf0mp_pPb8_syst->Draw("e2");
 
- TLegend* leg1 = new TLegend(0.304,0.233,0.864,0.486);
+ TLegend* leg1 = new TLegend(0.404,0.183,0.864,0.486);
  leg1->SetFillColorAlpha(0,0);
  leg1->SetLineWidth(0.0);
+ leg1->SetTextSize(28);
+ leg1->SetTextFont(43);
  leg1->AddEntry( (TObject*)0, "#scale[1.3]{ALICE Preliminary}","");
 // leg1->AddEntry( gf0mp_pp13_stat, "pp, #sqrt{s} = 13 TeV, INEL>0","lp");
  leg1->AddEntry( (TObject*)0, "f_{0}(980)#rightarrow#pi^{+}#pi^{-}", "");
- leg1->AddEntry( gf0mp_pp5_stat, "pp, #sqrt{#it{s}} = 5.02 TeV, INEL","lp");
- leg1->AddEntry( gf0mp_pPb5_stat, "p#font[122]{-}Pb, #sqrt{#it{s}_{NN}} = 5.02 TeV","lp");
- leg1->AddEntry( gf0mp_pPb5_mb_stat, "p#font[122]{-}Pb, #sqrt{#it{s}_{NN}} = 5.02 TeV, NSD","lp");
+ leg1->AddEntry( gf0mp_pp5_stat, "pp, #sqrt{#it{s}} = 5.02 TeV, INEL","p");
+ leg1->AddEntry( gf0mp_pPb5_stat, "p#font[122]{-}Pb, #sqrt{#it{s}_{NN}} = 5.02 TeV","p");
+ leg1->AddEntry( gf0mp_pPb5_mb_stat, "p#font[122]{-}Pb, #sqrt{#it{s}_{NN}} = 5.02 TeV, NSD","p");
 
 // leg1->AddEntry( gf0mp_pPb8_stat, "p-Pb, #sqrt{s_{NN}} = 8.16 TeV, NSD","lp");
 
  leg1->Draw();
 
  c1->SaveAs("figs/Fig3_MP.pdf");
+ c1->SaveAs("figs/Fig3_MP.eps");
 
 }

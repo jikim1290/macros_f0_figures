@@ -218,14 +218,16 @@ void Fig5_DR_pt_pion(){
  gPad->SetBottomMargin(0.13);
  gStyle->SetOptStat(0);
 
- TLegend* leg = new TLegend(0.147, 0.560, 0.670, 0.854);
- leg->SetLineWidth(0.0); leg->SetFillColorAlpha(0,0);
+ TLegend* leg = new TLegend(0.14, 0.610, 0.650, 0.92);
+ leg->SetLineWidth(0.0); leg->SetFillStyle(0);
+ leg->SetTextSize(24);
+ leg->SetTextFont(43);
 
- leg->AddEntry( (TObject*)0, "#scale[1.3]{ALICE Preliminary}", "");
+ leg->AddEntry( (TObject*)0, "#scale[1.2]{ALICE Preliminary}", "");
  leg->AddEntry( (TObject*)0, "p#font[122]{-}Pb, #sqrt{#it{s}_{NN}} = 5.02 TeV, -0.5<y<0", "");
- leg->AddEntry( hF0_pion_ratio_pT_stat[0], "0#font[122]{-}20%", "pl");
- leg->AddEntry( hF0_pion_ratio_pT_stat[3], "60#font[122]{-}100%", "lp");
-// leg->AddEntry( (TObject*)0, "Uncertainties: stat.(bars), syst.(boxes)", "");
+ leg->AddEntry( hF0_pion_ratio_pT_stat[0], "0#font[122]{-}20%", "p");
+ leg->AddEntry( hF0_pion_ratio_pT_stat[3], "60#font[122]{-}100%", "p");
+ //leg->AddEntry( (TObject*)0, "Uncertainties: stat.(bars), syst.(boxes)", "");
 
  hF0_pion_ratio_pT_stat[0]->SetMarkerSize(2);
  hF0_pion_ratio_pT_stat[3]->SetMarkerSize(2);
@@ -264,9 +266,12 @@ void Fig5_DR_pt_pion(){
  TPad* pad2 = new TPad("p2","p2",0.0,0.0,1.0,0.35);
  pad1->SetLeftMargin(0.13);
  pad1->SetBottomMargin(0.0);
+ pad1->SetTopMargin(0.03);
+ pad1->SetRightMargin(0.03);
  pad2->SetTopMargin(0.0);
  pad2->SetLeftMargin(0.13);
  pad2->SetBottomMargin(0.3);
+ pad2->SetRightMargin(0.03);
  pad1->SetTicks();
  pad2->SetTicks();
 
@@ -276,6 +281,11 @@ void Fig5_DR_pt_pion(){
  pad1->cd();
  hRatioSyst[0]->SetMarkerSize(2);
  hRatioStat[3]->SetMarkerSize(2);
+ hRatioSyst[0]->GetYaxis()->SetTitleSize(28);
+ hRatioSyst[0]->GetYaxis()->SetTitleFont(43);
+ hRatioSyst[0]->GetYaxis()->SetTitleOffset(1.3);
+ hRatioSyst[0]->GetYaxis()->SetLabelSize(24);
+ hRatioSyst[0]->GetYaxis()->SetLabelFont(43);
  hRatioSyst[0]->GetYaxis()->SetTitle("2f_{0}/(#pi^{+}+#pi^{-})");
  hRatioSyst[0]->SetMinimum(0.005);
  hRatioSyst[0]->GetYaxis()->SetNdivisions(505);
@@ -285,8 +295,10 @@ void Fig5_DR_pt_pion(){
  hRatioStat[3]->Draw("same");
  leg->Draw();
 
- TLegend* legu = new TLegend(0.256,0.006,0.917,0.131);
- legu->SetLineWidth(0.0); legu->SetFillColorAlpha(0,0);
+ TLegend* legu = new TLegend(0.356,0.006,0.917,0.131);
+ legu->SetLineWidth(0.0); legu->SetFillStyle(0);
+ legu->SetTextSize(20);
+ legu->SetTextFont(43);
  legu->AddEntry( (TObject*)0, "Uncertainties: stat.(bars), syst.(boxes)", "");
  legu->Draw();
 
@@ -295,14 +307,19 @@ void Fig5_DR_pt_pion(){
  hDoubleRatioStat->SetMaximum(1.6);
  hDoubleRatioStat->SetMinimum(0.4);
  hDoubleRatioStat->SetTitle("");
- hDoubleRatioStat->GetXaxis()->SetTitleSize(0.12);
- hDoubleRatioStat->GetXaxis()->SetLabelSize(0.12);
+ hDoubleRatioStat->GetXaxis()->SetTitleSize(28);
+ hDoubleRatioStat->GetXaxis()->SetTitleFont(43);
+ hDoubleRatioStat->GetXaxis()->SetLabelSize(24);
+ hDoubleRatioStat->GetXaxis()->SetLabelFont(43);
+ hDoubleRatioStat->GetXaxis()->SetTitleOffset(3.0);
  hDoubleRatioStat->GetYaxis()->SetTitle("#frac{(0#font[122]{-}20%)}{(60#font[122]{-}100%)}");
  hDoubleRatioStat->GetYaxis()->CenterTitle();
- hDoubleRatioStat->GetYaxis()->SetTitleSize(0.11);
- hDoubleRatioStat->GetYaxis()->SetTitleOffset(0.5);
+ hDoubleRatioStat->GetYaxis()->SetTitleSize(28);
+ hDoubleRatioStat->GetYaxis()->SetTitleFont(43);
+ hDoubleRatioStat->GetYaxis()->SetTitleOffset(1.3);
  hDoubleRatioStat->GetYaxis()->SetNdivisions(505);
- hDoubleRatioStat->GetYaxis()->SetLabelSize(0.11);
+ hDoubleRatioStat->GetYaxis()->SetLabelSize(24);
+ hDoubleRatioStat->GetYaxis()->SetLabelFont(43);
  hDoubleRatioStat->Draw();
  hDoubleRatioSyst->Draw("same,e2");
 
@@ -312,6 +329,7 @@ void Fig5_DR_pt_pion(){
  lui->Draw();
 
  cRatio->SaveAs("figs/Fig5_DR_pt_pion.pdf");
+ cRatio->SaveAs("figs/Fig5_DR_pt_pion.eps");
 
 /*
  TFile* fout_piondr = new TFile("pion_double_ratio_out.root","recreate");

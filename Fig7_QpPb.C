@@ -73,6 +73,7 @@
  TH1D* h_pt_pp5_stat_rebin = (TH1D*)h_pt_pp5_stat->Clone();
  TH1D* h_pt_pp5_syst_rebin = (TH1D*)h_pt_pp5_syst->Clone();
  TH1D* h_pt_pp5_syst_uncorr_rebin = (TH1D*)h_pt_pp5_syst_uncorr->Clone();
+#if 0
 /*
 //**
  h_pt_pp5_stat_rebin->SetBinContent( 1, ( h_pt_pp5_stat->GetBinContent(2) + h_pt_pp5_stat->GetBinContent(3) )/2.0 );
@@ -147,6 +148,7 @@
 //**
 */
 
+#endif
 
  double ncoll[nmult_pPb5] = {
 //	13.6, 9.99, 6.53, 3.04 };
@@ -205,6 +207,7 @@
 	hR_pPb5_syst_unc[i]->SetFillStyle(0);
 	hR_pPb5_syst_unc[i]->SetLineColor(RainbowColor[i]);
 	hR_pPb5_syst_unc[i]->SetMarkerColor(RainbowColor[i]);
+	hR_pPb5_syst_unc[i]->SetLineWidth(1);
 
 	hR_pPb5_stat[i]->SetLineColor(RainbowColor[i]); 
 
@@ -329,8 +332,8 @@
 
 	if( i==0 ) hRpPb_ch_syst_rebin[i]->Draw("e2");
 	hRpPb_ch_syst_rebin[i]->Draw("e2, same");
-	hRpPb_ch_stat_rebin[i]->Draw("same");
-	hRpPb_ch_stat_rebin[i]->Draw("same");
+	hRpPb_ch_stat_rebin[i]->Draw("ex0, same");
+	hRpPb_ch_stat_rebin[i]->Draw("ex0, same");
 
 
 	corr_perc[i] = sqrt( pow( corr_perc[i],2 ) + pow( hRpPb_ch_corr_rebin[i]->GetBinContent(1),2 ) );
@@ -345,10 +348,10 @@
  leg->SetLineWidth(0);
  leg->SetNColumns(2);
  leg->SetHeader("ZNA Multiplicity for pPb");
- leg->SetFillColorAlpha(0,0);
+ leg->SetFillStyle(0);
 
  for(int i=0;i<nmult_pPb5;i++){
-	if(i==0) hR_pPb5_stat[i]->Draw();
+	if(i==0) hR_pPb5_stat[i]->Draw("ex0");
 	hR_pPb5_stat[i]->Draw("same");
 	hR_pPb5_syst_unc[i]->Draw("same,e2");
 	leg->AddEntry( hR_pPb5_stat[i], Form("%.0lf#font[122]{-}%.0lf%%",multmin[i],multmax[i]),"LP");
@@ -371,7 +374,8 @@
 //	corr[i]->Draw();
  }
  TLatex* latex = new TLatex();
- latex->SetTextSize(0.04);
+ latex->SetTextSize(24);
+ latex->SetTextFont(43);
  latex->DrawLatex(4.5,1.8,"ALICE Preliminary");
  latex->DrawLatex(4.5,1.7,"INEL for pp, mult. class for p#font[122]{-}Pb");
  latex->DrawLatex(4.5,1.6,"pp@5.02 TeV, this work");
@@ -382,18 +386,22 @@
 
 // c->SaveAs("RpPb_5TeV.pdf");
 
- TLegend* leg_for_pPb5 = new TLegend(0.0475,0.576,0.992,0.865);
- leg_for_pPb5->SetNColumns(3);
+ TLegend* leg_for_pPb5 = new TLegend(0.0475,0.596,0.652,0.825);
+ leg_for_pPb5->SetNColumns(2);
  leg_for_pPb5->SetLineWidth(0.0);
- leg_for_pPb5->SetFillColorAlpha(0,0); 
+ leg_for_pPb5->SetTextFont(43);
+ leg_for_pPb5->SetTextSize(22);
+ leg_for_pPb5->SetFillStyle(0); 
 for(int i=0;i<nmult_pPb5;i++){
 	leg_for_pPb5->AddEntry( hR_pPb5_stat[i], Form("%.0lf#font[122]{-}%.0lf%%",multmin[i],multmax[i]),"p");
  }
 
 
- TLegend* leg_for_unc = new TLegend(0.3555, 0.8955, 0.9380, 0.9841);
- leg_for_unc->SetFillColorAlpha(0,0);
- leg_for_unc->SetNColumns(2);
+ TLegend* leg_for_unc = new TLegend(0.055, 0.755, 0.9380, 0.961);
+ leg_for_unc->SetFillStyle(0);
+ leg_for_unc->SetNColumns(1);
+ leg_for_unc->SetTextSize(22);
+ leg_for_unc->SetTextFont(43);
  leg_for_unc->SetLineWidth(0.0);
  TBox* unc_corr_example = new TBox(0,0,1,1);
  unc_corr_example->SetFillColor(1);
@@ -401,13 +409,17 @@ for(int i=0;i<nmult_pPb5;i++){
  unc_scale_example->SetFillStyle(0);
 
 // leg_for_unc->AddEntry( unc_corr_example,"Correlated Unc.","f");
- leg_for_unc->AddEntry( unc_scale_example,"Scaling Unc.","f");
+ leg_for_unc->AddEntry( unc_scale_example,"Scaling Uncertainty","f");
+ leg_for_unc->AddEntry("" ,"Uncertainties: stat.(bars), syst.(boxes)","");
+ leg_for_unc->SetMargin(0.15);
 
 
 
  TCanvas* cc_v1 = new TCanvas("cc_v1","cc_v1",1000,600);
- cc_v1->SetBottomMargin(0.14);
+ cc_v1->SetBottomMargin(0.18);
  cc_v1->SetLeftMargin(0.14);
+ cc_v1->SetTopMargin(0.03);
+ cc_v1->SetRightMargin(0.03);
  cc_v1->Divide(2,2,0,.0);
  for(int i=0;i<nmult_pPb5;i++){
 	cc_v1->cd(i+1);
@@ -415,9 +427,11 @@ for(int i=0;i<nmult_pPb5;i++){
 	hR_pPb5_stat[i]->GetXaxis()->SetTitle(" #font[12]{p}_{#font[22]{T}} (GeV/#font[12]{c})");
 	hR_pPb5_stat[i]->GetYaxis()->SetNdivisions(505);
 	if( i==0 || i==2 ){
-		hR_pPb5_stat[i]->GetYaxis()->SetTitleSize(0.1);
-		hR_pPb5_stat[i]->GetYaxis()->SetTitleOffset(0.6);
-		hR_pPb5_stat[i]->GetYaxis()->SetLabelSize(0.07);
+		hR_pPb5_stat[i]->GetYaxis()->SetTitleSize(30);
+		hR_pPb5_stat[i]->GetYaxis()->SetTitleFont(43);
+		hR_pPb5_stat[i]->GetYaxis()->SetTitleOffset(1.3);
+		hR_pPb5_stat[i]->GetYaxis()->SetLabelSize(26);
+		hR_pPb5_stat[i]->GetYaxis()->SetLabelFont(43);
 		hR_pPb5_stat[i]->GetYaxis()->SetNdivisions(505);
 		hR_pPb5_stat[i]->GetYaxis()->CenterTitle();
 	}
@@ -427,9 +441,11 @@ for(int i=0;i<nmult_pPb5;i++){
 	}
 
 	if( i==2 || i==3 ){
-		hR_pPb5_stat[i]->GetXaxis()->SetTitleSize(0.07);
-		hR_pPb5_stat[i]->GetXaxis()->SetTitleOffset(0.9);
-		hR_pPb5_stat[i]->GetXaxis()->SetLabelSize(0.07);
+		hR_pPb5_stat[i]->GetXaxis()->SetTitleSize(30);
+		hR_pPb5_stat[i]->GetXaxis()->SetTitleFont(43);
+		hR_pPb5_stat[i]->GetXaxis()->SetTitleOffset(1.7);
+		hR_pPb5_stat[i]->GetXaxis()->SetLabelSize(26);
+		hR_pPb5_stat[i]->GetXaxis()->SetLabelFont(43);
 		hR_pPb5_stat[i]->GetXaxis()->CenterTitle();
 	}
 	else{
@@ -441,57 +457,64 @@ for(int i=0;i<nmult_pPb5;i++){
 	hR_pPb5_stat[i]->GetXaxis()->SetRangeUser(0,8.1);
 	hR_pPb5_stat[i]->GetXaxis()->SetNdivisions(508);
 	hR_pPb5_stat[i]->GetXaxis()->LabelsOption("d");
-	hR_pPb5_stat[i]->Draw();
+	hR_pPb5_stat[i]->Draw("ex0");
 	hR_pPb5_syst_unc[i]->Draw("same,e2");
 	l_unity->Draw();
 //	corr[i]->Draw();
 	ScaleUnc[i]->Draw();
 
 	if( i==0 ){
-		latex->SetTextSize(0.09);
-		latex->DrawLatex(1.0,1.7,"ALICE Preliminary");
-		latex->DrawLatex(1.0,1.4,"p#font[122]{-}Pb #sqrt{#it{s}_{NN}} = 5.02 TeV, -0.5<y<0");
+		latex->SetTextSize(24);
+		latex->SetTextFont(43);
+		latex->DrawLatex(1.0,1.8,"ALICE Preliminary");
+		latex->DrawLatex(1.0,1.5,"p#font[122]{-}Pb #sqrt{#it{s}_{NN}} = 5.02 TeV, -0.5<y<0");
 	}
 	else if( i==1 ){
-		gPad->SetLeftMargin(0.012);
-		latex->SetTextSize(0.07);
+		gPad->SetLeftMargin(0.015);
+		latex->SetTextSize(24);
+		latex->SetTextFont(43);
 		latex->DrawLatex(1.0,1.8,"ZNA Multiplicity");
 		leg_for_pPb5->Draw();	
 	}
 	else if( i== 2 ){
-		leg_for_unc->Draw();
 	}
 	else if( i==3 ){
-		gPad->SetLeftMargin(0.012);
+		gPad->SetLeftMargin(0.015);
+		leg_for_unc->Draw();
 	}
  }
 
 // cc_v1->SaveAs("RpPb_cos.pdf");
 
- TLegend* legdata = new TLegend(0.189,0.696,0.741,0.838);
- legdata->SetNColumns(2);
+ TLegend* legdata = new TLegend(0.15,0.755,0.941,0.961);
+ legdata->SetNColumns(1);
  legdata->SetLineWidth(0.0);
- legdata->SetFillColorAlpha(0,0);
+ legdata->SetFillStyle(0);
+ legdata->SetTextSize(22);
+ legdata->SetTextFont(43);
+ legdata->SetMargin(0.15);
+ legdata->AddEntry( hRpPb_ch_stat_rebin[0], "Charged Hadron (PRC 91 064905 (2015))","p");
  legdata->AddEntry( hR_pPb5_stat[0], "f_{0}(980)", "p");
- legdata->AddEntry( hRpPb_ch_stat_rebin[0], "Charged Hadron","p");
 
  for(int i=0;i<nmult_pPb5;i++){
 	cc_v1->cd(i+1);
 
 	hRpPb_ch_stat_rebin[i]->SetMarkerStyle(24);
-	hRpPb_ch_stat_rebin[i]->Draw("same");
+	hRpPb_ch_stat_rebin[i]->Draw("same,ex0");
 	hRpPb_ch_syst_rebin[i]->Draw("same,e2");
 
 	if( i == 2 ){
 		legdata->Draw();
 	}
 	else if( i == 3 ){
-		latex->DrawLatex(0.5,1.5,"Uncertainties: stat.(bars), syst.(boxes)");
-		latex->DrawLatex(0.5,1.7,"Q_{pPb}^{ch}, PRC 91 064905 (2015)");
+		//legdata->Draw();
+		//latex->DrawLatex(0.5,1.5,"Uncertainties: stat.(bars), syst.(boxes)");
+		//latex->DrawLatex(0.5,1.7,"Q_{pPb}^{ch}, PRC 91 064905 (2015)");
 	}
  }
 
  cc_v1->SaveAs("figs/Fig7_QpPb.pdf");
+ cc_v1->SaveAs("figs/Fig7_QpPb.eps");
 /*
 
  TH1D* hQpPb_ratio_stat[nmult_pPb5];
